@@ -10,6 +10,9 @@ FROM rocker/shiny:4.3.0
 RUN apt-get update && apt-get install -y \
     libcurl4-gnutls-dev \
     libssl-dev libmagic-dev
+
+# rocker/shiny also sets a CRAN reference that is pinned in time. 
+# e.g. ENV CRAN="https://p3m.dev/cran/__linux__/noble/2025-04-10"
   
 
 # install R packages required 
@@ -23,8 +26,7 @@ RUN R -e 'install.packages(c(\
               "Cairo", \
               "shinyscreenshot", \
               "ggrepel" \
-            ), \
-            repos="https://packagemanager.rstudio.com/cran/__linux__/focal/2023-12-04"\
+            ) \
           )'
 
 
