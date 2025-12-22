@@ -59,6 +59,29 @@ or
 server-ip:3838
 ```
 
+### Automated Releases to Azure Container Registry
+
+To automatically build and push Docker images to Azure Container Registry via GitHub Actions:
+
+#### 1. Create Azure Service Principal
+Run in PowerShell or Azure CLI:
+```powershell
+az ad sp create-for-rbac --name "github-bilicurve" --role Contributor --scopes /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}
+```
+
+Save the output (contains `clientId`, `clientSecret`, `subscriptionId`, `tenantId`).
+
+#### 2. Add GitHub Secret
+1. Go to repository Settings → Secrets and variables → Actions
+2. Create new secret `AZURE_CREDENTIALS` 
+3. Paste the entire JSON output from step 1
+
+#### 3. Workflow Triggers Automatically
+- Push to `main` branch triggers the release
+- Or create a git tag (`v*`) to trigger a release build
+
+The workflow builds the image and pushes it to `uzgizshinyapps.azurecr.io/bilicurve`.
+
 ## References
 The data is obtained from:
 - Maisels MJ, Bhutani VK, Bogen D, Newman TB, Stark AR, Watchko JF. Hyperbilirubinemia in the newborn infant > or =35 weeks' gestation: an update with clarifications. Pediatrics. 2009;124(4):1193-1198. doi:10.1542/peds.2009-032 
