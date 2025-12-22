@@ -2,7 +2,7 @@
 # https://blog.sellorm.com/2021/04/25/shiny-app-in-docker/
 
 # get shiny server and R from the rocker project
-FROM rocker/shiny:4.3.0
+FROM rocker/shiny:4.5.2
 
 # system libraries
 # Try to only install system libraries you actually need
