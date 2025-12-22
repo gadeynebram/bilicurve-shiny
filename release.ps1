@@ -1,5 +1,5 @@
 # First ensure that the container can be build and tag it.
-podman build . -t uzgizshinyapps.azurecr.io/bilicurve
+podman build --no-cache -t uzgizshinyapps.azurecr.io/bilicurve .
 
 # Login to azure
 az login
