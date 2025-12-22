@@ -1,0 +1,28 @@
+name: Release to ACR
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Login to ACR
+        run: |
+          az acr login --name uzgizshinyapps
+      
+      - name: Build and push image
+        run: |
+          az acr build --registry uzgizshinyapps --image bilicurve:${{ github.sha }} --image bilicurve:latest .
