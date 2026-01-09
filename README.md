@@ -59,28 +59,25 @@ or
 server-ip:3838
 ```
 
-### Automated Releases to Azure Container Registry
+## Release naar Azure Container Registry
 
-To automatically build and push Docker images to Azure Container Registry via GitHub Actions:
+Voor het bouwen en publiceren van een nieuwe versie naar de Azure Container Registry kan het [release.ps1](release.ps1) PowerShell script gebruikt worden.
 
-#### 1. Create Azure Service Principal
-Run in PowerShell or Azure CLI:
+Het script voert de volgende stappen uit:
+1. Start de podman machine
+2. Bouwt de container image met podman (zonder cache)
+3. Logt in op Azure en de Container Registry
+4. Pushed de image naar `uzgizshinyapps.azurecr.io/bilicurve`
+
+Gebruik:
 ```powershell
-az ad sp create-for-rbac --name "github-bilicurve" --role Contributor --scopes /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}
+.\release.ps1 -tag dev
 ```
 
-Save the output (contains `clientId`, `clientSecret`, `subscriptionId`, `tenantId`).
-
-#### 2. Add GitHub Secret
-1. Go to repository Settings → Secrets and variables → Actions
-2. Create new secret `AZURE_CREDENTIALS` 
-3. Paste the entire JSON output from step 1
-
-#### 3. Workflow Triggers Automatically
-- Push to `main` branch triggers the release
-- Or create a git tag (`v*`) to trigger a release build
-
-The workflow builds the image and pushes it to `uzgizshinyapps.azurecr.io/bilicurve`.
+Als geen tag wordt meegegeven, wordt standaard de tag `latest` gebruikt:
+```powershell
+.\release.ps1
+```
 
 ## References
 The data is obtained from:
