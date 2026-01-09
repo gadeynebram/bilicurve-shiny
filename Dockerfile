@@ -2,14 +2,15 @@
 # https://blog.sellorm.com/2021/04/25/shiny-app-in-docker/
 
 # get shiny server and R from the rocker project
-FROM rocker/shiny:4.3.0
+FROM rocker/shiny:4.5.2
 
 # system libraries
 # Try to only install system libraries you actually need
 # Package Manager is a good resource to help discover system deps
 RUN apt-get update && apt-get install -y \
     libcurl4-gnutls-dev \
-    libssl-dev libmagic-dev
+    libssl-dev libmagic-dev \
+    libwebpmux3
 
 # rocker/shiny also sets a CRAN reference that is pinned in time. 
 # e.g. ENV CRAN="https://p3m.dev/cran/__linux__/noble/2025-04-10"
