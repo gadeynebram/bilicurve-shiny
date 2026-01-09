@@ -59,6 +59,26 @@ or
 server-ip:3838
 ```
 
+## Release naar Azure Container Registry
+
+Voor het bouwen en publiceren van een nieuwe versie naar de Azure Container Registry kan het [release.ps1](release.ps1) PowerShell script gebruikt worden.
+
+Het script voert de volgende stappen uit:
+1. Start de podman machine
+2. Bouwt de container image met podman (zonder cache)
+3. Logt in op Azure en de Container Registry
+4. Pushed de image naar `uzgizshinyapps.azurecr.io/bilicurve`
+
+Gebruik:
+```powershell
+.\release.ps1 -tag dev
+```
+
+Als geen tag wordt meegegeven, wordt standaard de tag `latest` gebruikt:
+```powershell
+.\release.ps1
+```
+
 ## References
 The data is obtained from:
 - Maisels MJ, Bhutani VK, Bogen D, Newman TB, Stark AR, Watchko JF. Hyperbilirubinemia in the newborn infant > or =35 weeks' gestation: an update with clarifications. Pediatrics. 2009;124(4):1193-1198. doi:10.1542/peds.2009-032 
