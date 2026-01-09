@@ -9,7 +9,8 @@ FROM rocker/shiny:4.5.2
 # Package Manager is a good resource to help discover system deps
 RUN apt-get update && apt-get install -y \
     libcurl4-gnutls-dev \
-    libssl-dev libmagic-dev
+    libssl-dev libmagic-dev \
+    libwebpmux3
 
 # rocker/shiny also sets a CRAN reference that is pinned in time. 
 # e.g. ENV CRAN="https://p3m.dev/cran/__linux__/noble/2025-04-10"
